@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import CharacterViewer from './components/CharacterViewer';
+import { showFloatingAvatar, hideFloatingAvatar, requestOverlayPermission } from './modules/FloatingAvatar';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -76,7 +77,17 @@ export default function App() {
         </View>
 
         {/* Botón */}
-        <TouchableOpacity style={[styles.startButton, { backgroundColor: selectedChar.color }]}>
+        <TouchableOpacity 
+          style={[styles.startButton, { backgroundColor: selectedChar.color }]}
+          onPress={async () => {
+            const hasPermission = await requestOverlayPermission();
+            if (hasPermission) {
+              await showFloatingAvatar(selectedChar.uri);
+            } else {
+              alert('Necesitas dar permiso para mostrar el personaje en pantalla');
+            }
+          }}
+        >
           <Text style={styles.startText}>Comenzar con {selectedChar.name} ✨</Text>
         </TouchableOpacity>
         <Text style={styles.freeText}>Gratis • Premium $3.99/mes</Text>
