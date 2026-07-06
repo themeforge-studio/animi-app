@@ -11,7 +11,7 @@ const CHARACTERS = [
     name: 'Kira',
     type: 'Chica Anime',
     personality: 'Amigable y energética',
-    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/character/vrm/Kira.vrm',
+    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/images/avatars/anime-girl.png',
     color: '#a78bfa',
   },
   {
@@ -19,7 +19,7 @@ const CHARACTERS = [
     name: 'Ryo',
     type: 'Chico Anime',
     personality: 'Serio y confiable',
-    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/character/vrm/Ryo.vrm',
+    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/images/avatars/anime-boy.png',
     color: '#3b82f6',
   },
   {
@@ -27,7 +27,7 @@ const CHARACTERS = [
     name: 'Mochi',
     type: 'Animal',
     personality: 'Juguetón y curioso',
-    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/character/vrm/Mochi.glb',
+    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/images/avatars/funko-girl.png',
     color: '#10b981',
   },
 ];
