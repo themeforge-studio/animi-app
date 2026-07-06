@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import CharacterViewer from './components/CharacterViewer';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -10,7 +11,7 @@ const CHARACTERS = [
     name: 'Kira',
     type: 'Chica Anime',
     personality: 'Amigable y energética',
-    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/images/avatars/anime-girl.png',
+    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/character/vrm/Kira.vrm',
     color: '#a78bfa',
   },
   {
@@ -18,7 +19,7 @@ const CHARACTERS = [
     name: 'Ryo',
     type: 'Chico Anime',
     personality: 'Serio y confiable',
-    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/images/avatars/anime-boy.png',
+    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/character/vrm/Ryo.vrm',
     color: '#3b82f6',
   },
   {
@@ -26,7 +27,7 @@ const CHARACTERS = [
     name: 'Mochi',
     type: 'Animal',
     personality: 'Juguetón y curioso',
-    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/images/avatars/funko-girl.png',
+    uri: 'https://ubnjxkqgdbdrqgbihwuf.supabase.co/storage/v1/object/public/themeforge-images/character/vrm/Mochi.glb',
     color: '#10b981',
   },
 ];
@@ -46,10 +47,10 @@ export default function App() {
 
       {/* Personaje grande */}
       <View style={styles.charContainer}>
-        <Image
-          source={{ uri: selectedChar.uri }}
-          style={styles.charImage}
-          resizeMode="contain"
+        <CharacterViewer
+          uri={selectedChar.uri}
+          width={SCREEN_WIDTH * 0.75}
+          height={SCREEN_HEIGHT * 0.45}
         />
         <View style={[styles.charBadge, { backgroundColor: selectedChar.color + '33', borderColor: selectedChar.color }]}>
           <Text style={[styles.charName, { color: selectedChar.color }]}>{selectedChar.name}</Text>
