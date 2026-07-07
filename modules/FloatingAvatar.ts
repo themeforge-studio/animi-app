@@ -1,25 +1,33 @@
-import { NativeModules, Platform, PermissionsAndroid } from 'react-native';
+import { NativeModules, Platform, Linking, Alert } from 'react-native';
+import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 const { FloatingAvatar } = NativeModules;
 
 export async function requestOverlayPermission(): Promise<boolean> {
   if (Platform.OS !== 'android') return false;
-  
+
+  // Intentar mostrar directamente — si falla es porque no hay permiso
   try {
-    const granted = await PermissionsAndroid.request(
-      'android.permission.SYSTEM_ALERT_WINDOW' as any,
-      {
-        title: 'Permiso de Overlay',
-        message: 'Animi necesita permiso para mostrar el personaje encima de otras apps',
-        buttonPositive: 'Permitir',
-        buttonNegative: 'Cancelar',
-      }
-    );
-    return granted === PermissionsAndroid.RESULTS.GRANTED;
+    if (FloatingAvatar) {
+      await FloatingAvatar.showAvatar('');
+      return true;
+    }
   } catch (e) {
-    console.log('Error solicitando permiso:', e);
+    // No hay permiso, abrir configuración
+    Alert.alert(
+      'Permiso necesario',
+      'Activa "Display over other apps" en Configuración para mostrar el personaje.',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Ir a Configuración',
+          onPress: () => Linking.openSettings(),
+        },
+      ]
+    );
     return false;
   }
+  return false;
 }
 
 export async function showFloatingAvatar(avatarUrl: string): Promise<void> {
@@ -27,7 +35,11 @@ export async function showFloatingAvatar(avatarUrl: string): Promise<void> {
     console.log('FloatingAvatar module not available');
     return;
   }
-  await FloatingAvatar.showAvatar(avatarUrl);
+  try {
+    await FloatingAvatar.showAvatar(avatarUrl);
+  } catch (e) {
+    console.log('Error mostrando avatar:', e);
+  }
 }
 
 export async function hideFloatingAvatar(): Promise<void> {

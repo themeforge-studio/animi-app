@@ -77,16 +77,11 @@ export default function App() {
         </View>
 
         {/* Botón */}
-        <TouchableOpacity 
-          style={[styles.startButton, { backgroundColor: selectedChar.color }]}
-          onPress={async () => {
-            const hasPermission = await requestOverlayPermission();
-            if (hasPermission) {
-              await showFloatingAvatar(selectedChar.uri);
-            } else {
-              alert('Necesitas dar permiso para mostrar el personaje en pantalla');
-            }
-          }}
+            <TouchableOpacity 
+              style={[styles.startButton, { backgroundColor: selectedChar.color }]}
+              onPress={async () => {
+                await showFloatingAvatar(selectedChar.uri);
+              }}
         >
           <Text style={styles.startText}>Comenzar con {selectedChar.name} ✨</Text>
         </TouchableOpacity>
