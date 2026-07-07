@@ -10,6 +10,7 @@
     "expo-status-bar": "~57.0.0",
     "react": "19.2.3",
     "react-native": "0.86.0",
+    "rn-android-overlay-permission": "^1.0.6",
     "three": "^0.160.0"
   },
   "devDependencies": {

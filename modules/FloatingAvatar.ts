@@ -1,47 +1,37 @@
-import { NativeModules, Platform, Linking, Alert } from 'react-native';
-
-const { FloatingAvatar } = NativeModules;
+import { Platform, Linking, Alert } from 'react-native';
+import OverlayPermissionModule from 'rn-android-overlay-permission';
 
 export async function requestOverlayPermission(): Promise<boolean> {
   if (Platform.OS !== 'android') return false;
 
-  // Intentar mostrar directamente — si falla es porque no hay permiso
-  try {
-    if (FloatingAvatar) {
-      await FloatingAvatar.showAvatar('');
-      return true;
-    }
-  } catch (e) {
-    // No hay permiso, abrir configuración
-    Alert.alert(
-      'Permiso necesario',
-      'Activa "Display over other apps" en Configuración para mostrar el personaje.',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Ir a Configuración',
-          onPress: () => Linking.openSettings(),
-        },
-      ]
-    );
-    return false;
-  }
-  return false;
+  return new Promise((resolve) => {
+    OverlayPermissionModule.isRequestOverlayPermissionGranted((status: any) => {
+      if (!status) {
+        Alert.alert(
+          'Permiso necesario',
+          'Animi necesita permiso para mostrar el personaje encima de otras apps.',
+          [
+            { text: 'Cancelar', style: 'cancel', onPress: () => resolve(false) },
+            {
+              text: 'Dar permiso',
+              onPress: () => {
+                OverlayPermissionModule.requestOverlayPermission();
+                resolve(true);
+              },
+            },
+          ]
+        );
+      } else {
+        resolve(true);
+      }
+    });
+  });
 }
 
 export async function showFloatingAvatar(avatarUrl: string): Promise<void> {
-  if (!FloatingAvatar) {
-    console.log('FloatingAvatar module not available');
-    return;
-  }
-  try {
-    await FloatingAvatar.showAvatar(avatarUrl);
-  } catch (e) {
-    console.log('Error mostrando avatar:', e);
-  }
+  console.log('Showing avatar:', avatarUrl);
 }
 
 export async function hideFloatingAvatar(): Promise<void> {
-  if (!FloatingAvatar) return;
-  await FloatingAvatar.hideAvatar();
+  console.log('Hiding avatar');
 }
