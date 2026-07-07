@@ -1,37 +1,37 @@
-import { Platform, Linking, Alert } from 'react-native';
-import OverlayPermissionModule from 'rn-android-overlay-permission';
+import { Platform, Linking, Alert, NativeModules } from 'react-native';
+
+const { FloatingAvatar } = NativeModules;
 
 export async function requestOverlayPermission(): Promise<boolean> {
   if (Platform.OS !== 'android') return false;
 
-  return new Promise((resolve) => {
-    OverlayPermissionModule.isRequestOverlayPermissionGranted((status: any) => {
-      if (!status) {
-        Alert.alert(
-          'Permiso necesario',
-          'Animi necesita permiso para mostrar el personaje encima de otras apps.',
-          [
-            { text: 'Cancelar', style: 'cancel', onPress: () => resolve(false) },
-            {
-              text: 'Dar permiso',
-              onPress: () => {
-                OverlayPermissionModule.requestOverlayPermission();
-                resolve(true);
-              },
-            },
-          ]
-        );
-      } else {
-        resolve(true);
-      }
-    });
-  });
+  Alert.alert(
+    'Permiso necesario',
+    'Animi necesita permiso para mostrar el personaje encima de otras apps.',
+    [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Ir a Configuración',
+        onPress: () => Linking.openSettings(),
+      },
+    ]
+  );
+  return true;
 }
 
 export async function showFloatingAvatar(avatarUrl: string): Promise<void> {
-  console.log('Showing avatar:', avatarUrl);
+  if (!FloatingAvatar) {
+    console.log('FloatingAvatar module not available');
+    return;
+  }
+  try {
+    await FloatingAvatar.showAvatar(avatarUrl);
+  } catch (e) {
+    console.log('Error:', e);
+  }
 }
 
 export async function hideFloatingAvatar(): Promise<void> {
-  console.log('Hiding avatar');
+  if (!FloatingAvatar) return;
+  await FloatingAvatar.hideAvatar();
 }
