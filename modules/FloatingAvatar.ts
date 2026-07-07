@@ -1,37 +1,17 @@
-import { Platform, Linking, Alert, NativeModules } from 'react-native';
-
-const { FloatingAvatar } = NativeModules;
-
-export async function requestOverlayPermission(): Promise<boolean> {
-  if (Platform.OS !== 'android') return false;
-
-  Alert.alert(
-    'Permiso necesario',
-    'Animi necesita permiso para mostrar el personaje encima de otras apps.',
-    [
-      { text: 'Cancelar', style: 'cancel' },
-      {
-        text: 'Ir a Configuración',
-        onPress: () => Linking.openSettings(),
-      },
-    ]
-  );
-  return true;
-}
+import FloatingAvatarModule from '../modules/floating-avatar/src/FloatingAvatarModule';
 
 export async function showFloatingAvatar(avatarUrl: string): Promise<void> {
-  if (!FloatingAvatar) {
-    console.log('FloatingAvatar module not available');
-    return;
-  }
   try {
-    await FloatingAvatar.showAvatar(avatarUrl);
+    await FloatingAvatarModule.showAvatar(avatarUrl);
   } catch (e) {
-    console.log('Error:', e);
+    console.log('Error mostrando avatar:', e);
   }
 }
 
 export async function hideFloatingAvatar(): Promise<void> {
-  if (!FloatingAvatar) return;
-  await FloatingAvatar.hideAvatar();
+  try {
+    await FloatingAvatarModule.hideAvatar();
+  } catch (e) {
+    console.log('Error ocultando avatar:', e);
+  }
 }
