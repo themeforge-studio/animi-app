@@ -4,7 +4,7 @@
   "main": "index.ts",
   "dependencies": {
     "@pixiv/three-vrm": "^3.5.4",
-    "expo": "~57.0.2",
+    "expo": "~57.0.4",
     "expo-dev-client": "~57.0.5",
     "expo-gl": "~57.0.1",
     "expo-status-bar": "~57.0.0",
