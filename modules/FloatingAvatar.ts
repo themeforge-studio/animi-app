@@ -1,5 +1,4 @@
 import { NativeModules, Platform, Linking, Alert } from 'react-native';
-import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 const { FloatingAvatar } = NativeModules;
 
