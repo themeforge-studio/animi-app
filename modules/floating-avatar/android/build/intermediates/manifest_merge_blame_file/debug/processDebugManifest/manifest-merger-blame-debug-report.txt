@@ -1,0 +1,23 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="expo.modules.floatingavatar" >
+4
+5    <uses-sdk android:minSdkVersion="24" />
+6
+7    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+7-->D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:2:3-75
+7-->D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:2:20-73
+8
+9    <application>
+9-->D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:4:3-9:17
+10        <service
+10-->D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:5:5-8:34
+11            android:name="expo.modules.floatingavatar.FloatingBubbleService"
+11-->D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:6:7-44
+12            android:enabled="true"
+12-->D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:7:7-29
+13            android:exported="false" />
+13-->D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:8:7-31
+14    </application>
+15
+16</manifest>

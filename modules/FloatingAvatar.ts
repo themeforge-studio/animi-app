@@ -1,10 +1,25 @@
 import FloatingAvatarModule from '../modules/floating-avatar/src/FloatingAvatarModule';
+import { Linking, Alert } from 'react-native';
 
 export async function showFloatingAvatar(avatarUrl: string): Promise<void> {
   try {
     await FloatingAvatarModule.showAvatar(avatarUrl);
-  } catch (e) {
-    console.log('Error mostrando avatar:', e);
+  } catch (e: any) {
+    if (e.message?.includes('PERMISSION_DENIED')) {
+      Alert.alert(
+        'Permiso necesario',
+        'Activa "Display over other apps" para Animi en Configuración.',
+        [
+          { text: 'Cancelar', style: 'cancel' },
+          {
+            text: 'Ir a Configuración',
+            onPress: () => Linking.openSettings(),
+          },
+        ]
+      );
+    } else {
+      console.log('Error mostrando avatar:', e);
+    }
   }
 }
 

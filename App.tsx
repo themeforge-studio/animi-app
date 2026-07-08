@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import CharacterViewer from './components/CharacterViewer';
-import { showFloatingAvatar, hideFloatingAvatar, requestOverlayPermission } from './modules/FloatingAvatar';
+import { showFloatingAvatar, hideFloatingAvatar } from './modules/FloatingAvatar';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -77,11 +77,17 @@ export default function App() {
         </View>
 
         {/* Botón */}
-            <TouchableOpacity 
-              style={[styles.startButton, { backgroundColor: selectedChar.color }]}
-              onPress={async () => {
-                await showFloatingAvatar(selectedChar.uri);
-              }}
+        <TouchableOpacity 
+          style={[styles.startButton, { backgroundColor: selectedChar.color }]}
+          onPress={async () => {
+            console.log('Botón presionado');
+            try {
+              await showFloatingAvatar(selectedChar.uri);
+              console.log('Avatar mostrado');
+            } catch (e) {
+              console.log('Error en botón:', e);
+            }
+          }}
         >
           <Text style={styles.startText}>Comenzar con {selectedChar.name} ✨</Text>
         </TouchableOpacity>

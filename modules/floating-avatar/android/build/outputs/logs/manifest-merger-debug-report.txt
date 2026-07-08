@@ -1,0 +1,30 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:1:1-10:12
+	package
+		INJECTED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:2:3-75
+	android:name
+		ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:2:20-73
+application
+ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:4:3-9:17
+service#expo.modules.floatingavatar.FloatingBubbleService
+ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:5:5-8:34
+	android:enabled
+		ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:7:7-29
+	android:exported
+		ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:8:7-31
+	android:name
+		ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:6:7-44
+uses-sdk
+INJECTED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml
+INJECTED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml
