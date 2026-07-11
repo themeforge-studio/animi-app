@@ -10,6 +10,10 @@ uses-permission#android.permission.SYSTEM_ALERT_WINDOW
 ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:2:3-75
 	android:name
 		ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:2:20-73
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:3:2-73
+	android:name
+		ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:3:19-71
 application
 ADDED from D:\ThemeForge-AI-Studio\animi-app\modules\floating-avatar\android\src\main\AndroidManifest.xml:4:3-9:17
 service#expo.modules.floatingavatar.FloatingBubbleService

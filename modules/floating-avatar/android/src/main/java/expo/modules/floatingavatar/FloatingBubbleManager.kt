@@ -41,7 +41,7 @@ class FloatingBubbleManager(private val context: Context) {
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             webViewClient = WebViewClient()
-            loadUrl(avatarUrl)
+            loadUrl("file:///android_asset/kira-viewer.html")
         }
 
         floatingView?.addView(webView, FrameLayout.LayoutParams(320, 520))
