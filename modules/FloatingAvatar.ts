@@ -11,14 +11,11 @@ export async function showFloatingAvatar(avatarUrl: string): Promise<void> {
         'Activa "Display over other apps" para Animi en Configuración.',
         [
           { text: 'Cancelar', style: 'cancel' },
-          {
-            text: 'Ir a Configuración',
-            onPress: () => Linking.openSettings(),
-          },
+          { text: 'Ir a Configuración', onPress: () => Linking.openSettings() },
         ]
       );
     } else {
-      console.log('Error mostrando avatar:', e);
+      console.log('Error:', e);
     }
   }
 }
@@ -27,6 +24,6 @@ export async function hideFloatingAvatar(): Promise<void> {
   try {
     await FloatingAvatarModule.hideAvatar();
   } catch (e) {
-    console.log('Error ocultando avatar:', e);
+    console.log('Error:', e);
   }
 }

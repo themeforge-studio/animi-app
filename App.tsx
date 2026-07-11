@@ -91,6 +91,16 @@ export default function App() {
         >
           <Text style={styles.startText}>Comenzar con {selectedChar.name} ✨</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={[styles.hideButton]}
+          onPress={async () => {
+            await hideFloatingAvatar();
+          }}
+        >
+          <Text style={styles.hideText}>Ocultar a Kira</Text>
+        </TouchableOpacity>
+
         <Text style={styles.freeText}>Gratis • Premium $3.99/mes</Text>
       </View>
     </View>
@@ -205,4 +215,16 @@ const styles = StyleSheet.create({
     fontSize: 11,
     textAlign: 'center',
   },
+  hideButton: {
+  paddingVertical: 10,
+  borderRadius: 16,
+  alignItems: 'center',
+  marginBottom: 10,
+  borderWidth: 1,
+  borderColor: '#6b7280',
+},
+hideText: {
+  color: '#9ca3af',
+  fontSize: 14,
+},
 });
