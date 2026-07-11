@@ -3,6 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import CharacterViewer from './components/CharacterViewer';
 import { showFloatingAvatar, hideFloatingAvatar } from './modules/FloatingAvatar';
+import VoiceListener from './components/VoiceListener';
+import MusicDetector from './components/MusicDetector';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -100,6 +102,22 @@ export default function App() {
         >
           <Text style={styles.hideText}>Ocultar a Kira</Text>
         </TouchableOpacity>
+
+        <VoiceListener
+          onKiraCalled={() => {
+            showFloatingAvatar(selectedChar.uri);
+          }}
+          onCommand={(command) => {
+            console.log('Comando recibido:', command);
+          }}
+        />
+
+        <MusicDetector
+          characterName={selectedChar.name}
+          onMusicPlaying={(isPlaying) => {
+            console.log('Música:', isPlaying ? 'reproduciendo' : 'parada');
+          }}
+        />
 
         <Text style={styles.freeText}>Gratis • Premium $3.99/mes</Text>
       </View>
