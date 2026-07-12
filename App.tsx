@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
 import CharacterViewer from './components/CharacterViewer';
-import { showFloatingAvatar, hideFloatingAvatar } from './modules/FloatingAvatar';
 import VoiceListener from './components/VoiceListener';
 import MusicDetector from './components/MusicDetector';
 import AIAssistant from './components/AIAssistant';
+import { AppState, AppStateStatus } from 'react-native';
+import { showFloatingAvatar, hideFloatingAvatar, showKiraOverlay, hideKiraOverlay } from './modules/FloatingAvatar';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -38,6 +39,17 @@ const CHARACTERS = [
 
 export default function App() {
   const [selectedChar, setSelectedChar] = useState(CHARACTERS[0]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (state: AppStateStatus) => {
+      if (state === 'background') {
+        hideKiraOverlay();
+      } else if (state === 'active') {
+        showKiraOverlay();
+      }
+    });
+    return () => subscription.remove();
+  }, []);
 
   return (
     <View style={styles.container}>

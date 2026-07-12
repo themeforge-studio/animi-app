@@ -9,6 +9,10 @@ import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
 class FloatingAvatarModule : Module() {
+
+  private var bubbleManager: FloatingBubbleManager? = null
+  private var lastAvatarUrl: String = ""
+
   override fun definition() = ModuleDefinition {
     Name("FloatingAvatar")
 
@@ -26,6 +30,8 @@ class FloatingAvatarModule : Module() {
         throw Exception("PERMISSION_DENIED")
       }
 
+      lastAvatarUrl = avatarUrl
+
       val serviceIntent = Intent(context, FloatingBubbleService::class.java).apply {
         putExtra("avatarUrl", avatarUrl)
       }
@@ -41,6 +47,18 @@ class FloatingAvatarModule : Module() {
       val context = appContext.reactContext ?: throw Exception("Context not available")
       val serviceIntent = Intent(context, FloatingBubbleService::class.java)
       context.stopService(serviceIntent)
+    }
+
+    AsyncFunction("showAvatarOverlay") {
+      android.os.Handler(android.os.Looper.getMainLooper()).post {
+        bubbleManager?.show(lastAvatarUrl)
+      }
+    }
+
+    AsyncFunction("hideAvatarOverlay") {
+      android.os.Handler(android.os.Looper.getMainLooper()).post {
+        bubbleManager?.hide()
+      }
     }
   }
 }

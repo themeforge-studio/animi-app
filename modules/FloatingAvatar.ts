@@ -27,3 +27,19 @@ export async function hideFloatingAvatar(): Promise<void> {
     console.log('Error:', e);
   }
 }
+
+export async function showKiraOverlay(): Promise<void> {
+  try {
+    await FloatingAvatarModule.showAvatarOverlay();
+  } catch (e) {
+    console.log('Error:', e);
+  }
+}
+
+export async function hideKiraOverlay(): Promise<void> {
+  try {
+    await FloatingAvatarModule.hideAvatarOverlay();
+  } catch (e) {
+    console.log('Error:', e);
+  }
+}

@@ -4,7 +4,10 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -12,24 +15,61 @@ import android.util.Log
 class FloatingBubbleService : Service() {
 
     private var bubbleManager: FloatingBubbleManager? = null
+    private var avatarUrl: String = ""
+    private var homeReceiver: BroadcastReceiver? = null
 
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("FloatingBubbleService", "Service started")
-
-        // IMPORTANTE: llamar startForeground inmediatamente
         startForegroundCompat()
 
-        val avatarUrl = intent?.getStringExtra("avatarUrl") ?: ""
+        avatarUrl = intent?.getStringExtra("avatarUrl") ?: ""
 
         if (bubbleManager == null) {
             bubbleManager = FloatingBubbleManager(applicationContext)
         }
 
+        // Mostrar Kira al inicio
         bubbleManager?.show(avatarUrl)
 
+        // Registrar receptor para detectar HOME y apps
+        registerHomeReceiver()
+
         return START_STICKY
+    }
+
+    private fun registerHomeReceiver() {
+        homeReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                when (intent?.action) {
+                    Intent.ACTION_CLOSE_SYSTEM_DIALOGS -> {
+                        val reason = intent.getStringExtra("reason")
+                        if (reason == "homekey" || reason == "recentapps") {
+                            // Usuario fue al home — mostrar Kira
+                            bubbleManager?.show(avatarUrl)
+                            Log.d("FloatingBubble", "Home detectado - mostrando Kira")
+                        }
+                    }
+                    Intent.ACTION_SCREEN_OFF -> {
+                        // Pantalla apagada — ocultar Kira
+                        bubbleManager?.hide()
+                    }
+                    Intent.ACTION_SCREEN_ON -> {
+                        // Pantalla encendida en home — mostrar Kira
+                        bubbleManager?.show(avatarUrl)
+                    }
+                }
+            }
+        }
+
+        val filter = IntentFilter().apply {
+            addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)
+            addAction(Intent.ACTION_SCREEN_OFF)
+            addAction(Intent.ACTION_SCREEN_ON)
+        }
+
+        registerReceiver(homeReceiver, filter)
     }
 
     private fun startForegroundCompat() {
@@ -55,6 +95,7 @@ class FloatingBubbleService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        homeReceiver?.let { unregisterReceiver(it) }
         bubbleManager?.hide()
         bubbleManager = null
         Log.d("FloatingBubbleService", "Service destroyed")
