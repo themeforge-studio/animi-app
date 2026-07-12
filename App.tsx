@@ -5,6 +5,7 @@ import CharacterViewer from './components/CharacterViewer';
 import { showFloatingAvatar, hideFloatingAvatar } from './modules/FloatingAvatar';
 import VoiceListener from './components/VoiceListener';
 import MusicDetector from './components/MusicDetector';
+import AIAssistant from './components/AIAssistant';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -117,6 +118,10 @@ export default function App() {
           onMusicPlaying={(isPlaying) => {
             console.log('Música:', isPlaying ? 'reproduciendo' : 'parada');
           }}
+        />
+        <AIAssistant
+          characterName={selectedChar.name}
+          characterPersonality={selectedChar.personality}
         />
 
         <Text style={styles.freeText}>Gratis • Premium $3.99/mes</Text>
