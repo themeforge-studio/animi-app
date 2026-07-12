@@ -36,6 +36,9 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# genera# Secrets
+# Secrets
 .env.local
-app.jsonted native folders
+app.json
+
+# generated native folders
+/ios
